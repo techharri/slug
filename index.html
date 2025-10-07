@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Slug Generator</title>
+  <title>Live Slug Generator</title>
   <style>
     body { font-family: Arial; padding: 20px; background: #f9f9f9; }
     input, select, button { padding: 8px; margin: 5px 0; }
-    .result { margin-top: 15px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+    .result { margin-top: 15px; font-weight: bold; display: flex; align-items: center; gap: 10px; position: relative; }
     footer { margin-top: 50px; font-size: 14px; color: #555; text-align: center; }
     button.copy-btn { padding: 5px 10px; cursor: pointer; display: none; }
+    .tooltip {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .tooltip.show { opacity: 1; }
   </style>
 </head>
 <body>
@@ -25,6 +40,7 @@
   <div class="result">
     <span id="slugResult"></span>
     <button class="copy-btn" id="copyBtn" onclick="copySlug()">Copy</button>
+    <div class="tooltip" id="tooltip">Copied!</div>
   </div>
   
   <footer>
@@ -36,6 +52,7 @@
     const separator = document.getElementById('separator');
     const slugResult = document.getElementById('slugResult');
     const copyBtn = document.getElementById('copyBtn');
+    const tooltip = document.getElementById('tooltip');
 
     function generateSlug() {
       let text = inputText.value.toLowerCase();
@@ -45,18 +62,16 @@
       slugResult.innerText = slug;
 
       // Show copy button only if slug is not empty
-      if(slug) {
-        copyBtn.style.display = 'inline-block';
-      } else {
-        copyBtn.style.display = 'none';
-      }
+      copyBtn.style.display = slug ? 'inline-block' : 'none';
     }
 
     function copySlug() {
       let slugText = slugResult.innerText;
       if(slugText === "") return;
       navigator.clipboard.writeText(slugText).then(() => {
-        alert("Copied to clipboard!");
+        // Show tooltip
+        tooltip.classList.add('show');
+        setTimeout(() => tooltip.classList.remove('show'), 1500); // hide after 1.5s
       });
     }
 
@@ -66,4 +81,3 @@
   </script>
 </body>
 </html>
-
