@@ -7,7 +7,7 @@
     input, select, button { padding: 8px; margin: 5px 0; }
     .result { margin-top: 15px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
     footer { margin-top: 50px; font-size: 14px; color: #555; text-align: center; }
-    button.copy-btn { padding: 5px 10px; cursor: pointer; }
+    button.copy-btn { padding: 5px 10px; cursor: pointer; display: none; }
   </style>
 </head>
 <body>
@@ -24,37 +24,4 @@
   
   <div class="result">
     <span id="slugResult"></span>
-    <button class="copy-btn" onclick="copySlug()">Copy</button>
-  </div>
-  
-  <footer>
-    &copy; Saurabh Kumar 2025
-  </footer>
-  
-  <script>
-    const inputText = document.getElementById('inputText');
-    const separator = document.getElementById('separator');
-    const slugResult = document.getElementById('slugResult');
-
-    function generateSlug() {
-      let text = inputText.value.toLowerCase();
-      text = text.replace(/[^a-z0-9\s]/g, '');
-      let sep = separator.value;
-      let slug = text.trim().replace(/\s+/g, sep);
-      slugResult.innerText = slug;
-    }
-
-    function copySlug() {
-      let slugText = slugResult.innerText;
-      if(slugText === "") return;
-      navigator.clipboard.writeText(slugText).then(() => {
-        alert("Copied to clipboard!");
-      });
-    }
-
-    // Live update on typing or separator change
-    inputText.addEventListener('input', generateSlug);
-    separator.addEventListener('change', generateSlug);
-  </script>
-</body>
-</html>
+    <button class="copy-btn" id="copyBtn" on
