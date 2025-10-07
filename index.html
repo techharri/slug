@@ -11,7 +11,7 @@
   </style>
 </head>
 <body>
-  <h2>Live Slug Generator</h2>
+  <h2>Slug Generator</h2>
   
   <label>Enter Text:</label><br>
   <input type="text" id="inputText" size="60" placeholder="Type here..."><br>
@@ -24,4 +24,45 @@
   
   <div class="result">
     <span id="slugResult"></span>
-    <button class="copy-btn" id="copyBtn" on
+    <button class="copy-btn" id="copyBtn" onclick="copySlug()">Copy</button>
+  </div>
+  
+  <footer>
+    &copy; Saurabh Kumar 2025
+  </footer>
+  
+  <script>
+    const inputText = document.getElementById('inputText');
+    const separator = document.getElementById('separator');
+    const slugResult = document.getElementById('slugResult');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function generateSlug() {
+      let text = inputText.value.toLowerCase();
+      text = text.replace(/[^a-z0-9\s]/g, '');
+      let sep = separator.value;
+      let slug = text.trim().replace(/\s+/g, sep);
+      slugResult.innerText = slug;
+
+      // Show copy button only if slug is not empty
+      if(slug) {
+        copyBtn.style.display = 'inline-block';
+      } else {
+        copyBtn.style.display = 'none';
+      }
+    }
+
+    function copySlug() {
+      let slugText = slugResult.innerText;
+      if(slugText === "") return;
+      navigator.clipboard.writeText(slugText).then(() => {
+        alert("Copied to clipboard!");
+      });
+    }
+
+    // Live update
+    inputText.addEventListener('input', generateSlug);
+    separator.addEventListener('change', generateSlug);
+  </script>
+</body>
+</html>
