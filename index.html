@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Slug Generator</title>
+  <title>Live Slug Generator</title>
   <style>
     body { font-family: Arial; padding: 20px; background: #f9f9f9; }
     input, select, button { padding: 8px; margin: 5px 0; }
@@ -11,18 +11,16 @@
   </style>
 </head>
 <body>
-  <h2>Slug Generator</h2>
+  <h2>Live Slug Generator</h2>
   
   <label>Enter Text:</label><br>
-  <input type="text" id="inputText" size="60"><br>
+  <input type="text" id="inputText" size="60" placeholder="Type here..."><br>
   
   <label>Separator:</label><br>
   <select id="separator">
     <option value="-">Dash (-)</option>
     <option value="_">Underscore (_)</option>
   </select><br>
-  
-  <button onclick="generateSlug()">Generate Slug</button>
   
   <div class="result">
     <span id="slugResult"></span>
@@ -34,29 +32,29 @@
   </footer>
   
   <script>
+    const inputText = document.getElementById('inputText');
+    const separator = document.getElementById('separator');
+    const slugResult = document.getElementById('slugResult');
+
     function generateSlug() {
-      let text = document.getElementById('inputText').value;
-      let sep = document.getElementById('separator').value;
-      
-      // Convert to lowercase
-      text = text.toLowerCase();
-      
-      // Remove unwanted characters (keep letters, numbers, spaces)
+      let text = inputText.value.toLowerCase();
       text = text.replace(/[^a-z0-9\s]/g, '');
-      
-      // Replace spaces with separator
+      let sep = separator.value;
       let slug = text.trim().replace(/\s+/g, sep);
-      
-      document.getElementById('slugResult').innerText = slug;
+      slugResult.innerText = slug;
     }
 
     function copySlug() {
-      let slugText = document.getElementById('slugResult').innerText;
+      let slugText = slugResult.innerText;
       if(slugText === "") return;
       navigator.clipboard.writeText(slugText).then(() => {
         alert("Copied to clipboard!");
       });
     }
+
+    // Live update on typing or separator change
+    inputText.addEventListener('input', generateSlug);
+    separator.addEventListener('change', generateSlug);
   </script>
 </body>
 </html>
