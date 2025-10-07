@@ -1,10 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My GitHub Website</title>
-  </head>
-  <body>
-    <h1>Hello from GitHub Pages!</h1>
-    <p>This is my free website hosted on GitHub.</p>
-  </body>
+<head>
+  <title>Slug Generator</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, select, button { padding: 8px; margin: 5px 0; }
+    .result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Slug Generator</h2>
+  
+  <label>Enter Text:</label><br>
+  <input type="text" id="inputText" size="60"><br>
+  
+  <label>Separator:</label><br>
+  <select id="separator">
+    <option value="-">Dash (-)</option>
+    <option value="_">Underscore (_)</option>
+  </select><br>
+  
+  <button onclick="generateSlug()">Generate Slug</button>
+  
+  <div class="result" id="slugResult"></div>
+  
+  <script>
+    function generateSlug() {
+      let text = document.getElementById('inputText').value;
+      let sep = document.getElementById('separator').value;
+      
+      // 1. Convert to lowercase
+      text = text.toLowerCase();
+      
+      // 2. Remove unwanted characters (keep letters, numbers, spaces)
+      text = text.replace(/[^a-z0-9\s]/g, '');
+      
+      // 3. Replace spaces with separator
+      let slug = text.trim().replace(/\s+/g, sep);
+      
+      document.getElementById('slugResult').innerText = slug;
+    }
+  </script>
+</body>
 </html>
