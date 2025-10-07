@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Slug Generator</title>
+  <title>Live Slug Generator</title>
   <style>
     body { font-family: Arial; padding: 20px; background: #f9f9f9; }
     input, select, button { padding: 8px; margin: 5px 0; }
@@ -22,15 +22,21 @@
       transition: opacity 0.3s;
       pointer-events: none;
     }
+    #container{
+      width: 100%;
+      font-size: large;
+      padding: 2em;
+    }
     .tooltip.show { opacity: 1; }
   </style>
 </head>
 <body>
+  <div id="container">
   <h2>Slug Generator</h2>
   
   <label>Enter Text:</label><br>
   <input type="text" id="inputText" size="60" placeholder="Type here..."><br>
-  
+  <br><br>
   <label>Separator:</label><br>
   <select id="separator">
     <option value="-">Dash (-)</option>
@@ -79,6 +85,6 @@
     inputText.addEventListener('input', generateSlug);
     separator.addEventListener('change', generateSlug);
   </script>
+  </div>
 </body>
 </html>
-
